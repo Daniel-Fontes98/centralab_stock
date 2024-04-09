@@ -15,12 +15,6 @@ import Link from "next/link";
 
 export const suppliersColumns: ColumnDef<Supplier>[] = [
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
-    ),
-  },
-  {
     accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nome" />

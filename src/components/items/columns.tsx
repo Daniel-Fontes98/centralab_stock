@@ -39,12 +39,6 @@ const ItemsColumnsHook = () => {
 
   const itemsColumns: ColumnDef<ItemType & { supplier: { name: string } }>[] = [
     {
-      accessorKey: "id",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Id" />
-      ),
-    },
-    {
       accessorKey: "name",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Nome" />

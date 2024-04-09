@@ -8,12 +8,6 @@ export const historyColumns: ColumnDef<
   }
 >[] = [
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
-    ),
-  },
-  {
     accessorKey: "itemMovementType.name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Tipo" />
