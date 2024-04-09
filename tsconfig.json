@@ -36,7 +36,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/__tests__/functions-with-context.jts"
   ],
   "exclude": ["node_modules"]
 }

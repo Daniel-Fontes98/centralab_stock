@@ -6,15 +6,70 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
+model Department {
+    id Int @id @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    name String
 
-    @@index([name])
+    itemMovements ItemMovement[]
+}
+
+model ItemType {
+    id Int @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name String
+    boxQuantity Int
+    alertMin Int
+    unitPrice Float
+    totalQuantity Int @default(0)
+    itemMovements ItemMovement[]
+
+    supplierId Int
+    supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+}
+
+model ItemMovement {
+    id Int @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    udpatedAt DateTime @updatedAt
+    quantity Int
+    isBoxes Boolean
+    expireDate DateTime?
+
+    departmentId Int @default(1) // Default para o do stock
+    department Department @relation(fields: [departmentId], references: [id])
+    itemMovementTypeId Int //1 - Remover, 2 - Adicionar
+    itemMovementType ItemMovementType @relation(fields: [itemMovementTypeId], references: [id])
+    itemTypeId Int
+    itemType ItemType @relation(fields: [itemTypeId], references: [id], onDelete: Cascade)
+}
+
+
+
+//Adicionar ou Remover do Stock
+model ItemMovementType {
+    id Int @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name String @unique
+    itemMovements ItemMovement[]
+}
+
+model Supplier {
+    id Int @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name String
+    email String?
+    location String?
+    phoneNumber String?
+    site String?
+
+    items ItemType[]
 }
