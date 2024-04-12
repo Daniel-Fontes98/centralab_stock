@@ -61,16 +61,20 @@ const ItemsColumnsHook = () => {
       ),
     },
     {
-      accessorKey: "alertMin",
+      accessorKey: "totalQuantity",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Valor Minimo de Alerta" />
+        <DataTableColumnHeader column={column} title="Em Stock (Unidades)" />
       ),
     },
     {
-      accessorKey: "totalQuantity",
+      id: "totalQuantityBoxes",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Em Stock" />
+        <DataTableColumnHeader column={column} title="Em Stock (Caixas)" />
       ),
+      cell: ({ row }) => {
+        const item = row.original;
+        return <div>{Math.floor(item.totalQuantity / item.boxQuantity)}</div>;
+      },
     },
     {
       accessorKey: "supplier.name",
@@ -103,7 +107,7 @@ const ItemsColumnsHook = () => {
                   <DropdownMenuItem>Retirar </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
-                <Link href={`/itemMovement/history/${item.id}`}>
+                <Link href={`//history/${item.id}`}>
                   <DropdownMenuItem>Ver Histórico</DropdownMenuItem>
                 </Link>
                 <Link href={`/items/update/${item.id}`}>

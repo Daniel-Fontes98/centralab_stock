@@ -112,6 +112,19 @@ export const itemMovementRouter = createTRPCRouter({
       },
     });
   }),
+  getByItemTypeId: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.itemMovement.findMany({
+        where: {
+          itemTypeId: input.id
+        },
+        include: {
+          itemMovementType: true,
+          itemType: true,
+        },
+      });
+    }),
   delete: publicProcedure
     .input(
       z.object({
