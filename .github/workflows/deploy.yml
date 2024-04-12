@@ -16,9 +16,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Sync database
-        run: npx prisma db push
-
       - name: Build Next.js app
         run: npm run build
 
