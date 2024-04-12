@@ -1,0 +1,33 @@
+name: Deploy Centralab Stock App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Sync database
+        run: npx prisma db push
+
+      - name: Build Next.js app
+        run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to production
+        run: |
+          # Add your deployment commands here, such as deploying to a server or hosting platform
+          npm run start
