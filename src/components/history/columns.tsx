@@ -1,12 +1,23 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../tables/column-header";
 import type { ItemMovement } from "@prisma/client";
+import { format } from "date-fns";
 
 export const historyColumns: ColumnDef<
   ItemMovement & { itemMovementType: { name: string } } & {
     itemType: { name: string };
   }
 >[] = [
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Data" />
+    ),
+    cell: ({ row }) => {
+      const itemMovement = row.original;
+      return <div>{format(itemMovement.createdAt, "dd/MM/yyyy kk:mm")}</div>;
+    },
+  },
   {
     accessorKey: "itemMovementType.name",
     header: ({ column }) => (
@@ -30,8 +41,6 @@ export const historyColumns: ColumnDef<
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Caixas" />
     ),
-    cell: ({ row }) => (
-      <div className="text-center">{row.getValue("isBoxes") ? "X" : ""}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("isBoxes") ? "Sim" : "Não"}</div>,
   },
 ];
