@@ -45,7 +45,7 @@ export const itemTypeRouter = createTRPCRouter({
   getById: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) => {
-      return await ctx.db.itemType.findMany({
+      return await ctx.db.itemType.findFirst({
         where: {
           id: input.id,
         },
