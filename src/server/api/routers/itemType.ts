@@ -42,6 +42,18 @@ export const itemTypeRouter = createTRPCRouter({
       },
     });
   }),
+  getById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.itemType.findMany({
+        where: {
+          id: input.id,
+        },
+        include: {
+          supplier: true,
+        },
+      });
+    }),
   getBySupplierId: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) => {
