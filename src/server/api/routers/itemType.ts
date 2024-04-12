@@ -42,12 +42,15 @@ export const itemTypeRouter = createTRPCRouter({
       },
     });
   }),
-  getById: publicProcedure
+  getBySupplierId: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) => {
-      return await ctx.db.itemType.findFirst({
+      return await ctx.db.itemType.findMany({
         where: {
-          id: input.id,
+          supplierId: input.id,
+        },
+        include: {
+          supplier: true,
         },
       });
     }),

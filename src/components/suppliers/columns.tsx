@@ -48,7 +48,7 @@ export const suppliersColumns: ColumnDef<Supplier>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const item = row.original;
+      const supplier = row.original;
 
       return (
         <DropdownMenu>
@@ -61,8 +61,10 @@ export const suppliersColumns: ColumnDef<Supplier>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
-
-            <Link href={`/suppliers/update/${item.id}`}>
+            <Link href={`/suppliers/${supplier.id}`}>
+              <DropdownMenuItem>Ver Items </DropdownMenuItem>
+            </Link>
+            <Link href={`/suppliers/update/${supplier.id}`}>
               <DropdownMenuItem>Editar </DropdownMenuItem>
             </Link>
 
