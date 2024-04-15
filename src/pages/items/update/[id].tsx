@@ -29,7 +29,7 @@ const itemTypeFormSchema = z.object({
   name: z.string().min(2, {
     message: "Nome tem de ter no mínimo dois caracteres.",
   }),
-  unitPrice: z.number().min(1),
+  unitPrice: z.number().min(0),
   boxQuantity: z.number().min(1),
   alertMin: z.number().min(1),
   supplierId: z.string().min(1),
